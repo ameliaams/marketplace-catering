@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MerchantController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,13 +25,30 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Routes untuk dashboard
-Route::middleware(['auth'])->group(function () {
-    Route::get('/merchant/dashboard', function () {
-        return view('merchant.dashboard');
-    })->middleware('role:merchant')->name('merchant.dashboard');
+Route::middleware(['auth', 'role:merchant'])->group(function () {
+    Route::prefix('merchant')->group(function () {
+        Route::controller(MerchantController::class)->group(function () {
+            Route::get('/dashboard', 'index')->name('merchant.dashboard');
+            Route::get('/menu', 'menuKatering')->name('merchant.menu');
+            Route::get('/menu/addMenu', 'create')->name('merchant.addmenu');
+            Route::post('/menu/store', 'store')->name('merchant.store');
+            Route::get('/order', 'orderList')->name('merchant.order');
+        });
+    });
+
 
     Route::get('/user/dashboard', function () {
         return view('user.dashboard');
     })->middleware('role:user')->name('user.dashboard');
+
 });
+
+// Route::prefix('attributes')->group(function () {
+//     Route::controller(PayrollAttributeController::class)->group(function () {
+//         Route::get('/', 'index');
+//         Route::get('/{idPayrollAttribute}/edit', 'show');
+
+//         Route::post('/edit', 'edit');
+//         Route::post('/', 'store');
+//     });
+// });
