@@ -49,11 +49,9 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        // Coba login tanpa mengecek role dari form
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Redirect berdasarkan peran yang ada di database
             return $this->redirectBasedOnRole();
         }
 
@@ -67,8 +65,9 @@ class AuthController extends Controller
     {
         if (Auth::user()->role === 'merchant') {
             return redirect()->route('merchant.dashboard');
+        } else if (Auth::user()->role === 'user') {
+            return redirect()->route('user.dashboard');
         }
-        return redirect()->route('user.dashboard');
     }
 
     public function logout(Request $request)

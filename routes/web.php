@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MerchantController;
 use Illuminate\Support\Facades\Route;
@@ -38,12 +39,15 @@ Route::middleware(['auth', 'role:merchant'])->group(function () {
             Route::get('/order', 'orderList')->name('merchant.order');
         });
     });
+});
 
-
-    Route::get('/user/dashboard', function () {
-        return view('user.dashboard');
-    })->middleware('role:user')->name('user.dashboard');
-
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::prefix('user')->group(function () {
+        Route::controller(CustomerController::class)->group(function () {
+            Route::get('/dashboard', 'index')->name('user.dashboard');
+            Route::get('/catering', 'menuKatering')->name('user.menu');
+        });
+    });
 });
 
 // Route::prefix('attributes')->group(function () {
