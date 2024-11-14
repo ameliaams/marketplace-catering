@@ -32,6 +32,9 @@ Route::middleware(['auth', 'role:merchant'])->group(function () {
             Route::get('/menu', 'menuKatering')->name('merchant.menu');
             Route::get('/menu/addMenu', 'create')->name('merchant.addmenu');
             Route::post('/menu/store', 'store')->name('merchant.store');
+            Route::get('/menu/{food}/edit', 'edit')->name('merchant.edit');
+            Route::put('/menu/{food}/update', 'update')->name('merchant.update');
+            Route::delete('menu/{food}', 'destroy')->name('merchant.delete');
             Route::get('/order', 'orderList')->name('merchant.order');
         });
     });

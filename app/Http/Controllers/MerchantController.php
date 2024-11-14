@@ -49,7 +49,7 @@ class MerchantController extends Controller
 
     public function edit(Menu $food)
     {
-        return view('foods.edit', compact('food'));
+        return view('merchant.editmenu', compact('food'));
     }
 
     public function update(Request $request, Menu $food)
@@ -66,6 +66,9 @@ class MerchantController extends Controller
         $food->price = $request->price;
 
         if ($request->hasFile('photo')) {
+            if ($food->photo) {
+                Storage::delete('public/' . $food->photo);
+            }
             $food->photo = $request->file('photo')->store('photos', 'public');
         }
 
@@ -73,6 +76,7 @@ class MerchantController extends Controller
 
         return redirect()->route('merchant.menu')->with('success', 'Food item updated successfully.');
     }
+
 
     public function destroy(Menu $food)
     {
