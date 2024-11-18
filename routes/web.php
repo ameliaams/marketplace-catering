@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -45,17 +43,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::prefix('user')->group(function () {
         Route::controller(CustomerController::class)->group(function () {
             Route::get('/dashboard', 'index')->name('user.dashboard');
-            Route::get('/catering', 'menuKatering')->name('user.menu');
+            Route::get('/catering', 'menuKatering')->name('user.catering');
         });
     });
 });
-
-// Route::prefix('attributes')->group(function () {
-//     Route::controller(PayrollAttributeController::class)->group(function () {
-//         Route::get('/', 'index');
-//         Route::get('/{idPayrollAttribute}/edit', 'show');
-
-//         Route::post('/edit', 'edit');
-//         Route::post('/', 'store');
-//     });
-// });

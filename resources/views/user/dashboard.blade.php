@@ -1,9 +1,7 @@
-@section('title', 'Home Page')
+@extends('layouts')
 
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-    @csrf
-</form>
+@section('title', 'Dashboard')
 
-<button onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-danger">
-    Logout
-</button>
+@section('content')
+dashboard user
+@endsection

@@ -39,7 +39,7 @@
                     <i class="fas fa-home w-6"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="#" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700 rounded-lg">
+                <a href="{{ route('user.catering') }}" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700 rounded-lg">
                     <i class="fas fa-shopping-cart w-6"></i>
                     <span>Catering</span>
                 </a>

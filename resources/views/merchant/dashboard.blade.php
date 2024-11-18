@@ -1,6 +1,6 @@
 @extends('layouts')
 
-@section('title', 'Menu')
+@section('title', 'Dashboard')
 
 @section('content')
 dashboard merchant

@@ -10,44 +10,39 @@
 <body class="d-flex justify-content-center align-items-center" style="height: 100vh; background-color: #f8f9fa;">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+            <div class="col-md-6">
+                <div class="card shadow-sm p-4">
+                    <!-- Tabs nav -->
 
-                    <div class="card-body">
+                    <!-- Tabs content -->
+                    <div class="tab-content">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-
-                            <div class="mb-3">
-                                <label for="email">{{ __('Email Address') }}</label>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                       name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <div class="form-outline mb-4">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="Enter your email" required autofocus>
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
-                                <label for="password">{{ __('Password') }}</label>
-                                <input id="password" type="password"
-                                       class="form-control @error('password') is-invalid @enderror"
-                                       name="password" required autocomplete="current-password">
+                            <div class="form-outline mb-4">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter your password" required>
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mb-4">{{ __('Login') }}</button>
+                            <p>Don't have account? <a href="{{ route('register') }}">Register</a></p>
                         </form>
                     </div>
+                    <!-- End Tabs content -->
                 </div>
             </div>
         </div>
