@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
+class Profile extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
-        'merchant_id',
+        'company_name',
+        'contact',
         'description',
-        'photo',
-        'price'
+        'address',
     ];
 }

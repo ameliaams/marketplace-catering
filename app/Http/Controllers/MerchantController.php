@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,11 +16,20 @@ class MerchantController extends Controller
         return view('merchant.dashboard');
     }
 
+    public function showProfile(Profile $profile, User $data)
+    {
+        $data = auth()->user();
+        $profile = $data->merchant;
+        return view('merchant.profile', compact('profile', 'data'));
+    }
+
     public function menuKatering()
     {
-        $foods = Menu::all();
+        $merchantId = auth()->user()->id;
+        $foods = Menu::where('merchant_id', $merchantId)->get();
         return view('merchant.menu', compact('foods'));
     }
+
 
     public function create()
     {
@@ -27,6 +38,8 @@ class MerchantController extends Controller
 
     public function store(Request $request)
     {
+        $merchantId = auth()->user()->id;
+
         $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -35,6 +48,7 @@ class MerchantController extends Controller
         ]);
 
         $food = new Menu;
+        $food->merchant_id = $merchantId;
         $food->name = $request->name;
         $food->description = $request->description;
         $food->price = $request->price;

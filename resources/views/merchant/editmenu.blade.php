@@ -7,7 +7,7 @@
     <div class="card-body">
         <form action="{{ route('merchant.update', $food) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PUT') <!-- Tambahkan @method('PUT') untuk mengubah method form menjadi PUT -->
+            @method('PUT')
             <div class="mb-3">
                 <label for="name" class="form-label">Name of Menu</label>
                 <input type="text" name="name" class="form-control" value="{{ old('name', $food->name) }}">

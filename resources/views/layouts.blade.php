@@ -66,14 +66,18 @@
                             <span class="text-sm font-semibold">{{ auth()->user()->name }}</span>
                         </div>
 
+
                         <div x-data="{ open: false }" class="relative">
                             <button @click="open = !open" class="flex items-center focus:outline-none">
                                 <img class="w-8 h-8 rounded-full" src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}" alt="User avatar">
                             </button>
 
                             <div x-show="open" @click.away="open = false" class="absolute right-0 w-48 mt-2 py-2 bg-white rounded-lg shadow-xl">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                                @if(auth()->user()->role === 'merchant')
+                                    <a href="{{ route('merchant.profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                                @elseif (auth()->user->role === 'user')
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                                @endif
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
