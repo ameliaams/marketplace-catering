@@ -7,43 +7,59 @@ use Illuminate\Support\Facades\DB;
 
 class MenuService
 {
-    protected $menuRepository;
-
-    public function __construct(MenuInterface $menuRepository)
-    {
-        $this->menuRepository = $menuRepository;
-    }
+    public function __construct(private MenuInterface $menuInterface) {}
 
     public function getMenusByMerchant($merchantId)
     {
-        return $this->menuRepository->getByMerchantId($merchantId);
+        return $this->menuInterface->getByMerchantId($merchantId);
     }
 
-    public function createMenu($data)
+    public function createMenu($request)
     {
+        $merchantId = auth()->user()->id;
         try {
-            DB::transaction(function () use($data) {
+            DB::transaction(function () use ($request, $merchantId) {
                 $menuData = [
-                'merchant_id' => $data['merchant_id'],
-                'name' => $data['name'],
-                'description' => $data['description'],
-                'price' => $data['price'],
-                'photo' => $data['photo']->store('photos', 'public')
-            ];
-            $this->menuRepository->create($menuData);
-        });
+                    'merchant_id' => $merchantId,
+                    'name' => $request['name'],
+                    'description' => $request['description'],
+                    'price' => $request['price'],
+                ];
+
+                if (isset($request['photo']) && $request['photo']->isValid()) {
+                    $menuData['photo'] = $request['photo']->store('photos', 'public');
+                }
+
+                $this->menuInterface->create($menuData);
+            });
         } catch (\Throwable $th) {
             throw new \Exception($th->getMessage());
         }
     }
 
-    public function updateMenu($food, $data)
+    public function updateMenu($request, $id)
     {
-        return $this->menuRepository->update($food, $data);
+        try {
+            DB::transaction(function () use ($request, $id) {
+                $menuData = [
+                    'name' => $request['name'],
+                    'description' => $request['description'],
+                    'price' => $request['price'],
+                ];
+
+                if ($request->hasFile('photo')) {
+                    $menuData['photo'] = $request->file('photo')->store('photos', 'public');
+                }
+
+                return $this->menuInterface->update($id, $menuData);
+            });
+        } catch (\Throwable $th) {
+            throw new \Exception($th->getMessage());
+        }
     }
 
     public function deleteMenu($food)
     {
-        return $this->menuRepository->delete($food);
+        return $this->menuInterface->delete($food);
     }
 }

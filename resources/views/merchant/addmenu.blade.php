@@ -23,7 +23,10 @@
                 <label for="photo" class="form-label">Food Photo</label>
                 <input type="file" class="form-control" name="photo">
             </div>
-            <button type="submit" class="btn btn-primary">Add Menu</button>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-success me-3">Add Menu</button>
+            <a href="{{ route('merchant.menu') }}" class="btn btn-primary">Back</a>
+            </div>
         </form>
     </div>
 </div>

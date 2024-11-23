@@ -5,7 +5,7 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <a href="{{ route('merchant.addmenu') }}" class="btn btn-primary">Add Menu</a>
+        <a href="{{ route('merchant.addmenu') }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i><span>  Add Menu</span></a>
         <div class="container py-5">
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 @foreach ($foods as $menu)

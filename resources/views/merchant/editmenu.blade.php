@@ -27,7 +27,10 @@
                     <img src="{{ asset('storage/'.$food->photo) }}" alt="Food Photo" width="100">
                 @endif
             </div>
-            <button type="submit" class="btn btn-primary">Update Menu</button>  <!-- Ganti tombol menjadi "Update" -->
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-success me-3">Update Menu</button>
+            <a href="{{ route('merchant.menu') }}" class="btn btn-primary">Back</a>
+            </div>
         </form>
     </div>
 </div>

@@ -18,21 +18,21 @@ class MenuRepository implements MenuInterface
         return Menu::create($data);
     }
 
-    public function update(Menu $food, array $data)
+    public function update($id, array $data)
     {
-        $food->name = $data['name'];
-        $food->description = $data['description'];
-        $food->price = $data['price'];
+        $menu = Menu::find($id);
 
-        if (isset($data['photo'])) {
-            if ($food->photo) {
-                Storage::delete('public/' . $food->photo);
-            }
-            $food->photo = $data['photo']->store('photos', 'public');
+        if (!$menu) {
+            throw new \Exception('Menu not found');
         }
 
-        $food->save();
-        return $food;
+        if (isset($data['photo']) && $menu->photo) {
+            Storage::delete('public/' . $menu->photo);
+        }
+
+        $menu->update($data);
+
+        return $menu;
     }
 
     public function delete(Menu $food)
