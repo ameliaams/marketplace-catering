@@ -5,52 +5,42 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <form class="row g-3" action="{{ route('merchant.profile', ['data' => $data, 'profile' => $profile]) }}" method="POST" enctype="multipart/form-data">
-            @csrf
+        <div>
             <h3>Profile</h3>
-
-            <!-- Email -->
+            <a href="{{ route('merchant.editProfile', ['id' => $data->id]) }}" class="btn btn-primary">Update Profile</a>
+        </div>
+        <div class="row mb-3 mt-5">
             <div class="col-md-6">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" value="{{ old('email', $data->email) }}">
+                <label for="email" class="h6 form-label">Email</label>
+                <p>{{ old('email', $data->email) }}</p>
             </div>
-
-            <!-- Username -->
             <div class="col-md-6">
-                <label for="name" class="form-label">Username</label>
-                <input type="text" class="form-control" name="name" value="{{ old('name', $data->name) }}">
+                <label for="name" class="h6 form-label">Username</label>
+                <p>{{ old('email', $data->email) }}</p>
             </div>
-
-            <!-- Company Name -->
+        </div>
+        <div class="row mb-3">
             <div class="col-md-6">
-                <label for="company_name" class="form-label">Company Name</label>
-                <input type="text" class="form-control" name="company_name" value="{{ old('company_name', $profile->company_name ?? '') }}">
+                <label for="company_name" class="h6 form-label">Company Name</label>
+                <p>{{ old('company_name', $profile->company_name ?? '') }}</p>
             </div>
-
-            <!-- Contact -->
             <div class="col-md-6">
-                <label for="contact" class="form-label">Contact</label>
-                <input type="text" class="form-control" name="contact" value="{{ old('contact', $profile->contact ?? '') }}">
+                <label for="contact" class="h6 form-label">Contact</label>
+                <p>{{ old('contact', $profile->contact ?? '') }}</p>
             </div>
-
-            <!-- Description -->
-            <div class="col-12">
-                <label for="company_desc" class="form-label">Description about company</label>
-                <textarea name="company_desc" class="form-control" rows="5">{{ old('company_desc', $profile->company_desc ?? '') }}</textarea>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <label for="company_desc" class="h6 form-label">Description about company</label>
+                <textarea name="company_desc" class="form-control" rows="5" readonly>{{ old('company_desc', $profile->description ?? '') }}</textarea>
             </div>
-
-            <!-- Address -->
-            <div class="col-12">
-                <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" name="address" value="{{ old('address', $profile->address ?? '') }}">
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <label for="address" class="h6 form-label">Address</label>
+                <input type="text" class="form-control" name="address" value="{{ old('address', $profile->address ?? '') }}" readonly>
             </div>
-
-            <!-- Submit Button -->
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary">Update</button>
-            </div>
-        </form>
-
+        </div>
     </div>
 </div>
 @endsection

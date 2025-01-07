@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\Merchant\MenuController;
+use App\Http\Controllers\Merchant\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,15 +30,19 @@ Route::middleware(['auth', 'role:merchant'])->group(function () {
         Route::controller(MerchantController::class)->group(function () {
             Route::get('/dashboard', 'index')->name('merchant.dashboard');
             Route::get('/order', 'orderList')->name('merchant.order');
-            Route::get('/profile', 'showProfile')->name('merchant.profile');
         });
         Route::controller(MenuController::class)->group(function () {
             Route::get('/menu', 'menuKatering')->name('merchant.menu');
             Route::get('/menu/addMenu', 'create')->name('merchant.addmenu');
             Route::post('/menu/store', 'store')->name('merchant.store');
             Route::get('/menu/{food}/edit', 'edit')->name('merchant.edit');
-            Route::put('/menu/{food}/update', 'update')->name('merchant.update');
+            Route::put('/menu/{food}/update', 'update')->name('merchant.updateMenu');
             Route::delete('menu/{food}', 'destroy')->name('merchant.delete');
+        });
+        Route::controller(ProfileController::class)->group(function () {
+            Route::get('profile/{id}', 'showById')->name('merchant.profile');
+            Route::get('/profile/update/{id}', 'edit')->name('merchant.editProfile');
+            Route::put('/profile/update/{id}', 'update')->name('merchant.updateProfile');
         });
     });
 });

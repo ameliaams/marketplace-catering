@@ -10,9 +10,7 @@ use App\Http\Requests\MenuRequest;
 
 class MenuController extends Controller
 {
-    protected $menuService;
-
-    public function __construct(MenuService $menuService)
+    public function __construct(protected MenuService $menuService)
     {
         $this->menuService = $menuService;
     }

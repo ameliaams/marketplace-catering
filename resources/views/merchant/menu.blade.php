@@ -5,6 +5,7 @@
 @section('content')
 <div class="card">
     <div class="card-body">
+        <h3>Menu</h3>
         <a href="{{ route('merchant.addmenu') }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i><span>  Add Menu</span></a>
         <div class="container py-5">
             <div class="row row-cols-1 row-cols-md-3 g-4">

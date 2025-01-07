@@ -11,6 +11,7 @@
                 <th>Nama</th>
                 <th>Pesanan</th>
                 <th>Tgl Pengiriman</th>
+                <th>Status</th>
                 <th>Detail</th>
             </tr>
             <tr>
@@ -18,6 +19,7 @@
                 <td>Amel</td>
                 <td>Nasi Ayam Kotak</td>
                 <td>14 November</td>
+                <td><span class="badge text-bg-warning">Pending</span></td>
                 <td><button class="btn btn-success">Detail</button></td>
             </tr>
           </table>

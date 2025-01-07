@@ -5,7 +5,7 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <form action="{{ route('merchant.update', $food) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('merchant.updateMenu', $food) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">
